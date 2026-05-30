@@ -1,0 +1,222 @@
+// Custom Theme Variables overriding Bootstrap defaults
+$primary: #255f71; // Brand Deep Teal
+$secondary: #0f172a; // Brand Slate Blue
+$success: #10b981; // Vibrant Emerald
+$warning: #f59e0b; // Warm Amber
+$danger: #ef4444; // Coral Red
+$info: #3b82f6; // Royal Blue
+$light: #f8fafc; // Soft Ice White
+$dark: #090d16; // Deep Abyss Dark
+
+// Body Styling
+$body-bg: #fafaf9;
+$body-color: #1e293b;
+$font-family-sans-serif: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+
+// Button adjustments
+$btn-border-radius: 8px;
+$btn-font-weight: 600;
+
+// Import Bootstrap SCSS
+@import "bootstrap/scss/bootstrap";
+
+// Import Bootstrap Icons CSS
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+// Global Adjustments
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $font-family-sans-serif;
+  overflow-x: hidden;
+  background-color: $body-bg;
+  color: $body-color;
+  -webkit-font-smoothing: antialiased;
+}
+
+// Custom Scrollbar
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: lighten($primary, 15%);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: $primary;
+}
+
+// Custom Gradients
+.bg-gradient-teal {
+  background: linear-gradient(135deg, $primary 0%, darken($primary, 15%) 100%);
+}
+
+.bg-gradient-slate {
+  background: linear-gradient(135deg, $secondary 0%, lighten($secondary, 8%) 100%);
+}
+
+.bg-gradient-glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.bg-gradient-glass-dark {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+// Floating micro-animations
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+// Glass Card Hover Effect
+.hover-card {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba($primary, 0.15);
+    border-color: rgba($primary, 0.3) !important;
+  }
+}
+
+// Form steps custom UI
+.form-step-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  color: #64748b;
+  border: 2px solid transparent;
+
+  &.active {
+    background-color: $primary;
+    color: white;
+    box-shadow: 0 0 0 4px rgba($primary, 0.2);
+  }
+
+  &.completed {
+    background-color: $success;
+    color: white;
+  }
+}
+
+.form-step-connector {
+  flex: 1;
+  height: 3px;
+  background-color: #e2e8f0;
+  transition: all 0.3s ease;
+  
+  &.active {
+    background-color: $primary;
+  }
+  &.completed {
+    background-color: $success;
+  }
+}
+
+// Before After Slider Styling
+.before-after-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  user-select: none;
+}
+
+.before-image, .after-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.slider-handle-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: #ffffff;
+  cursor: ew-resize;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  z-index: 10;
+}
+
+.slider-handle-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: $primary;
+  border: 3px solid #ffffff;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  cursor: ew-resize;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  z-index: 11;
+  
+  &:hover {
+    background-color: lighten($primary, 5%);
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+// Language indicator tag
+.lang-badge {
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  
+  &.active {
+    background-color: rgba($primary, 0.1);
+    color: $primary;
+    border-color: rgba($primary, 0.2);
+  }
+  
+  &:hover:not(.active) {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+}
