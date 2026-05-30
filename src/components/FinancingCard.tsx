@@ -1,26 +1,22 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function FinancingCard() {
   const { t } = useLanguage();
   const [cost, setCost] = useState(15000); // Default estimate $15k
   const [term, setTerm] = useState(7); // Default 7 years
-  const [monthlyEst, setMonthlyEst] = useState(0);
 
-  useEffect(() => {
-    // Standard amortization formula at 6.99% fixed APR
-    const annualRate = 0.0699;
-    const monthlyRate = annualRate / 12;
-    const totalPayments = term * 12;
-    
-    const payment = 
-      (cost * monthlyRate * Math.pow(1 + monthlyRate, totalPayments)) / 
-      (Math.pow(1 + monthlyRate, totalPayments) - 1);
-      
-    setMonthlyEst(Math.round(payment));
-  }, [cost, term]);
+  // Standard amortization formula at 6.99% fixed APR
+  const annualRate = 0.0699;
+  const monthlyRate = annualRate / 12;
+  const totalPayments = term * 12;
+  
+  const monthlyEst = Math.round(
+    (cost * monthlyRate * Math.pow(1 + monthlyRate, totalPayments)) / 
+    (Math.pow(1 + monthlyRate, totalPayments) - 1)
+  );
 
   return (
     <section id="financing" className="py-5 bg-gradient-slate text-white position-relative overflow-hidden">

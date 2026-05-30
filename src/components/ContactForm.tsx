@@ -100,7 +100,7 @@ export default function ContactForm() {
         const errorData = await response.json();
         setErrorMessage(errorData.error || 'Failed to submit form. Please try again.');
       }
-    } catch (error) {
+    } catch {
       setErrorMessage('Network error occurred. Please check your connection.');
     } finally {
       setIsSubmitting(false);

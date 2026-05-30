@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function BeforeAfterSlider() {
@@ -9,7 +9,7 @@ export default function BeforeAfterSlider() {
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleMove = (clientX: number) => {
+  const handleMove = useCallback((clientX: number) => {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const x = clientX - rect.left;
@@ -19,21 +19,21 @@ export default function BeforeAfterSlider() {
     if (position < 0) setSliderPosition(0);
     else if (position > 100) setSliderPosition(100);
     else setSliderPosition(position);
-  };
+  }, []);
 
-  const handleTouchMove = (e: TouchEvent) => {
+  const handleTouchMove = useCallback((e: TouchEvent) => {
     if (!isDragging) return;
     handleMove(e.touches[0].clientX);
-  };
+  }, [isDragging, handleMove]);
 
-  const handleMouseMove = (e: MouseEvent) => {
+  const handleMouseMove = useCallback((e: MouseEvent) => {
     if (!isDragging) return;
     handleMove(e.clientX);
-  };
+  }, [isDragging, handleMove]);
 
-  const handleMouseUp = () => {
+  const handleMouseUp = useCallback(() => {
     setIsDragging(false);
-  };
+  }, []);
 
   useEffect(() => {
     if (isDragging) {
@@ -49,7 +49,7 @@ export default function BeforeAfterSlider() {
       window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('touchend', handleMouseUp);
     };
-  }, [isDragging]);
+  }, [isDragging, handleMouseMove, handleTouchMove, handleMouseUp]);
 
   const handleMouseDown = () => {
     setIsDragging(true);
